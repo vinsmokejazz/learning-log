@@ -1,0 +1,8 @@
+# Set default behavior
+* text=auto
+
+# Force LF for specific files
+*.js text eol=lf
+*.jsx text eol=lf
+*.html text eol=lf
+*.json text eol=lf
