@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostComponent } from "./post";
 
 function App() {
   const[count, setCount]=useState(1);
 
   function increaseCount(){
-    setCount(count+1);
+    setCount(currentValue=> currentValue+1)
   }
+  
+  useEffect(function(){
+    console.log("above setInterval")
+    setInterval(increaseCount,1000);
+  },[])
 
-  setInterval(increaseCount,1000);
+
 
   return <div>
     <div style={{display:"flex"}}>
