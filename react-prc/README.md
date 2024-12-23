@@ -1,8 +1,32 @@
-# React + Vite
+# Notification counter 
+ ## example
+ import { useEffect, useState } from "react";
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+function App() {
+  const[count, setCount]=useState(1);
 
-Currently, two official plugins are available:
+  function increaseCount(){
+    setCount(currentValue=> currentValue+1)
+  }
+  
+  useEffect(function(){
+    console.log("above setInterval")
+    setInterval(increaseCount,1000);
+  },[])
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+  return <div>
+    <div style={{display:"flex"}}>
+    <div style={{backgroundColor:"red", borderRadius:50,padding:7,
+    width:15, height:15, textAlign:"center"
+    }}>
+      {count}
+    </div></div>
+    <img style={{cursor:"pointer"}} src={"image"}
+    width={30}/>
+    <button onClick={increaseCount}>Increase</button>
+  </div>
+}
+
+export default App
