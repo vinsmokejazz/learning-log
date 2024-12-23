@@ -1,6 +1,7 @@
 # Notification counter 
  ## example
- import { useEffect, useState } from "react";
+```javascript
+import { useEffect, useState } from "react";
 
 function App() {
   const[count, setCount]=useState(1);
