@@ -1,33 +1,35 @@
-import { useEffect, useState } from "react";
+import React from 'react';
 
-function App() {
-  return (
-    <div style={{ display: "flex" }}>
-      <Card>
-        <div style={{color:"white"}}>
-          What do you want to post <br/> <br/>
-          <input type={"text"} />
-        </div>
-      </Card>
-      <Card> hi there </Card>
-    </div>
-  );
-
-  function Card({ children }) {
+const Card = ({ children }) => {
     return (
-      <div
-        style={{
-          backgroundColor: "black",
-          borderRadius: 10,
-          color: "white",
-          padding: 20,
-          margin: 10,
-        }}
-      >
-        {children}
-      </div>
+        <div style={{
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            padding : 20,
+            
+          
+            margin: '10px',
+            boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.1)',
+        }}>
+            {children}
+        </div>
     );
-  }
-}
+};
+
+const App = () => {
+    return (
+        <div>
+            <Card>
+                <h2>Card Title</h2>
+                <p>This is some content inside the card.</p>
+                <input type="text" />
+            </Card>
+            <Card>
+                <h2>Another Card</h2>
+                <p>This card has different content!</p>
+            </Card>
+        </div>
+    );
+};
 
 export default App;
