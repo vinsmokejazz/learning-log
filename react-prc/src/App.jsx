@@ -1,37 +1,36 @@
-import React from 'react';
+import React from "react";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
-class ErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { hasError: false };
-    }
-
-    static getDerivedStateFromError(error) {
-        return { hasError: true };
-    }
-
-    componentDidCatch(error, info) {
-        console.error("Error caught:", error, info);
-    }
-
-    render() {
-        if (this.state.hasError) {
-            return <h1>Something went wrong.</h1>;
-        }
-
-        return this.props.children; 
-    }
+function App(){
+    return <div>
+        <BrowserRouter>
+        <Routes>
+            <Route path="/neet/online-coaching-class-11" element={<Class11Program/>}/>
+            <Route path="/neet/online-coaching-class-12" element={<Class12Program/>}/>
+            <Route path="/" element={<Landing/>}/>
+        </Routes>
+        </BrowserRouter>
+    </div>
 }
 
-const BuggyComponent = () => {
-    throw new Error("I crashed!");
-};
+function Landing() {
+    return <div>
+        Welcome to ALLEN
+    </div>
+}
 
-const App = () => {
-    return (
-        <ErrorBoundary>
-            <BuggyComponent />
-        </ErrorBoundary>
-    );
-};
-export default App;
+function Class11Program(){
+    return <div>
+        Class 11
+    </div>
+}
+
+function Class12Program(){
+    return <div>
+        Class 12
+    </div>
+}
+
+
+
+export default App
