@@ -1,40 +1,32 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
-  const timer = useRef(null);
+function Chat() {
+  const [messages, setMessages] = useState(["Hello!", "How are you?","everything fine"]);
+  const chatBoxRef = useRef(null);
 
-  function startClock() {
-    if (!timer.current) {
-      setCount(0);  // Reset the count before starting
-      timer.current = setInterval(() => {
-        setCount(prevCount => prevCount + 1);
-      }, 1000);
-    }
-  }
+  // Function to simulate adding new messages
+  const addMessage = () => {
+    setMessages((prevMessages) => [...prevMessages, "New message!"]);
+  };
 
-  function stopClock() {
-    clearInterval(timer.current);
-    timer.current = null;  // Reset the timer ref
-  }
-
-  function reStart() {
-    setCount(0);  // Reset the count
-    stopClock();  // Stop the clock
-  }
-
+  // Scroll to the bottom whenever a new message is added
   useEffect(() => {
-    return () => clearInterval(timer.current);  // Cleanup on unmount
-  }, []);
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }, [messages]);
 
   return (
     <div>
-      <p>{count}</p>
-      <button onClick={startClock}>START</button>
-      <button onClick={stopClock}>STOP</button>
-      <button onClick={reStart}>CLEAR</button>
+      <div 
+        ref={chatBoxRef} 
+        style={{ height: "200px", overflowY: "scroll", border: "1px solid black" }}
+      >
+        {messages.map((msg, index) => (
+          <div key={index}>{msg}</div>
+        ))}
+      </div>
+      <button onClick={addMessage}>Add Message</button>
     </div>
   );
 }
 
-export default App;
+export default Chat;
