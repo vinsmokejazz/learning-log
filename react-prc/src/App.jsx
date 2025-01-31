@@ -7,22 +7,31 @@ function App(){
 }
 
 function LightBulb(){
+  const [bulbOn,setBulbOn]=useState(false);
   return <div>
-    <BulbState/>
-    <ToggleBulbState/>
-    <button>Toggle Bulb</button>
+    <BulbState bulbOn={bulbOn}/>
+    <ToggleBulbState setBulbOn={setBulbOn} 
+    bulbOn={bulbOn} />
+
   </div>
 }
 
-function BulbState(){
-  const [bulbOn,setBulbOn]=useState(true);
+function BulbState({bulbOn}){
   return <div>
-    {bulbOn? "bulb on": "bulb off"}
+    {bulbOn ? "bulb on": "bulb off"}
   </div>
 
 }
 
-function ToggleBulbState(){
+function ToggleBulbState({bulbOn,setBulbOn}){
+  function toggle(){
+    //setBulbOn(currentState=> !currentState);
+    setBulbOn(!bulbOn);
+  }
+  return <div>
+    <button onClick={toggle}>Toggle Bulb</button>
+  </div>
+
 
 }
 
