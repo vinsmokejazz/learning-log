@@ -26,7 +26,8 @@ function Light(){
 function LightBulb(){
   const {bulbOn}=useContext(bulbContext);
   return <div>
-    {bulbOn ? "bulb on": "bulb off"}
+    {bulbOn ? <img src="https://toppng.com/uploads/preview/light-bulb-on-off-png-11553944387r25q4wkfyw.png"></img> :
+    <img src="https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940319kdxsp3rf0i.png"></img> }
   </div>
 
 }

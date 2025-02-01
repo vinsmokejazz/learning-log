@@ -379,7 +379,7 @@ function Light(){
 function LightBulb(){
   const {bulbOn}=useContext(bulbContext);
   return <div>
-    {bulbOn ? "bulb on": "bulb off"}
+    {bulbOn ? "bulb on": "bulb off"} //images can added!!
   </div>
 
 }
@@ -393,7 +393,6 @@ function LightSwitch(){
   return <div>
     <button onClick={toggle}>Toggle Bulb</button>
   </div>
-
 
 }
 export default App 
