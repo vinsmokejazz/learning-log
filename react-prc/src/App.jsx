@@ -2,7 +2,6 @@ import { useState, createContext , useContext } from "react"
 //ideally context stored in seprate file
 const bulbContext=createContext(); //context created always outside the component 
 
-
 function BulbProvider({children}){
   const [bulbOn,setBulbOn]=useState(true);
   return <bulbContext.Provider value={{
