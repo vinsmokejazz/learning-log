@@ -608,3 +608,122 @@ const UserData = () => {
 // Export the UserData component as the default export to be used in other components
 export default UserData;
 ```
+
+# Profile and Post Component eg : linkdn
+```javascript
+import { useState, useEffect } from "react";
+
+function App() {
+  return (
+    <div style={{ backgroundColor: "#dfe6e9", height: "100vh", padding: "20px" }}>
+      {/* Main Container */}
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: "20px" }}>
+        {/* Profile Section (Left Side) */}
+        <div>
+          <ProfileCard />
+        </div>
+
+        {/* Posts Section (Center) */}
+        <div>
+          <PostComponent />
+          <PostComponent />
+          <PostComponent />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// PostComponent
+const postStyle = {
+  width: 200,
+  backgroundColor: "white",
+  borderRadius: 10,
+  border: "1px solid gray",
+  padding: 16,
+  marginTop: 10,
+};
+
+function PostComponent() {
+  return (
+    <div style={postStyle}>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img
+          src="https://picsum.photos/200/300"
+          alt="User avatar"
+          style={{ width: 40, height: 40, borderRadius: "50%", marginRight: 10 }}
+        />
+        <div style={{ fontSize: 14 }}>
+          <b>VIKING</b>
+          <div>23,888 followers</div>
+          <div>12m</div>
+        </div>
+      </div>
+
+      {/* Post Content */}
+      <div style={{ fontSize: 14, marginTop: 10 }}>
+        Want to know how to win big? Check out how these folks won $6000 in bounties.
+      </div>
+    </div>
+  );
+}
+
+// ProfileCard
+const profileCardStyle = {
+  backgroundColor: "white",
+  width: 200,
+  borderRadius: 10,
+  overflow: "hidden",
+};
+
+function ProfileCard() {
+  return (
+    <div style={profileCardStyle}>
+      {/* Banner */}
+      <div style={{ backgroundColor: "#74b9ff", height: 80, position: "relative" }}>
+        {/* Profile Image */}
+        <div
+          style={{
+            position: "absolute",
+            top: 50,
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <img
+            src="https://png.pngtree.com/png-vector/20190116/ourmid/pngtree-vector-clock-icon-png-image_322077.jpg"
+            alt="Profile"
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: "50%",
+              border: "3px solid white",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Profile Info */}
+      <div style={{ textAlign: "center", marginTop: 40 }}>
+        <b>VIKING</b>
+        <div>Working at WebRTC</div>
+      </div>
+
+      {/* Stats */}
+      <div style={{ borderTop: "1px solid gray", paddingTop: 10, marginTop: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+          <div>Profile views</div>
+          <div>20,000</div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>Post impressions</div>
+          <div>11,000</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
