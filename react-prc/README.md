@@ -455,4 +455,31 @@ function LightSwitch(){
 }
 export default App
 ```
+# LocalStorage counter eg
+```javascript
+import { useEffect, useState } from "react";
 
+function App() {
+const [count,setCount]=useState(()=>{
+const localCount=localStorage.getItem("count");
+return localCount ? parseInt(localCount,10) : 1;
+});
+useEffect(()=>{
+  localStorage.setItem("count",count)
+},[count])
+
+function incrementC(){
+  setCount(prevC=>prevC+1);
+}
+function decreC(){
+  setCount(prevC=>prevC-1);
+}
+
+return <div>
+  <p>{count}</p>
+  <button onClick={incrementC}>++</button>
+  <button onClick={decreC}>--</button>
+</div>
+}
+export default App
+```
