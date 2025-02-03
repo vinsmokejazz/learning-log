@@ -811,3 +811,47 @@ function App() {
 }
 export default App
 ```
+# useDebounced hook
+## application like search in amazon
+```javascript
+import { useState, useEffect, useRef } from "react";
+
+function useDebounce(orgFn) {
+  const currentClock = useRef();
+
+  const fn = () => {
+    clearTimeout(currentClock.current);
+    currentClock.current = setTimeout(orgFn, 200);
+  }
+  return fn
+
+}
+
+function App() {
+  function sendDataToBackend() {
+    fetch("api.amazon.com/search/");
+  }
+  const debouncedFn = useDebounce(sendDataToBackend)
+
+  return <div>
+    <input type="text" onChange={debouncedFn}></input>
+  </div>
+
+}
+export default App
+```
+## nodeJS implementation for reference
+```javascript
+let currentClock;
+function searchBackend() {
+  console.log("request sent to backend");
+}
+
+function debounceSearch() {
+  clearTimeout(currentClock);
+  currentClock = setTimeout(searchBackend, 30);
+}
+
+debounceSearch();
+debounceSearch();
+```
