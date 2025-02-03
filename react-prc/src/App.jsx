@@ -1,7 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useFetch, usePostTitle } from "./hooks/useFetch";
-import { usePrev } from "./hooks/usePrev";
-
 
 function useDebounce(orgFn) {
   const currentClock = useRef();
