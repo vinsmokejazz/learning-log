@@ -399,53 +399,53 @@ export default App
 ```
 ## Removing ugly code and making bulbprovider as own componet
 ```javascript
-import { useState, createContext , useContext } from "react"
+import { useState, createContext, useContext } from "react"
 //ideally context stored in seprate file
-const bulbContext=createContext(); //context created always outside the component 
+const bulbContext = createContext(); //context created always outside the component 
 
-function BulbProvider({children}){
-  const [bulbOn,setBulbOn]=useState(true);
+function BulbProvider({ children }) {
+  const [bulbOn, setBulbOn] = useState(true);
   return <bulbContext.Provider value={{
     bulbOn: bulbOn,
     setBulbOn: setBulbOn,
   }}>
     {children}
-  </bulbContext.Provider> 
+  </bulbContext.Provider>
 
 }
 
-function App(){
+function App() {
 
   return <div>
     <BulbProvider>
-      <Light/>
+      <Light />
     </BulbProvider>
-    
+
   </div>
 }
 
-function Light(){
-  
+function Light() {
+
   return <div>
-    <LightBulb/>
-    <LightSwitch/>
+    <LightBulb />
+    <LightSwitch />
   </div>
 }
 
-function LightBulb(){
-  const { bulbOn }=useContext(bulbContext);
+function LightBulb() {
+  const { bulbOn } = useContext(bulbContext);
   return <div>
-    {bulbOn ? 
-    (<img src="https://toppng.com/uploads/preview/light-bulb-on-off-png-11553944387r25q4wkfyw.png"></img> ) :
+    {bulbOn ?
+      (<img src="https://toppng.com/uploads/preview/light-bulb-on-off-png-11553944387r25q4wkfyw.png"></img>) :
 
-    (<img src="https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940319kdxsp3rf0i.png"></img> )}
-  </div> 
+      (<img src="https://toppng.com/uploads/preview/light-bulb-on-off-png-11553940319kdxsp3rf0i.png"></img>)}
+  </div>
 
 }
 
-function LightSwitch(){
-  const { bulbOn , setBulbOn }=useContext(bulbContext);
-  function toggle(){
+function LightSwitch() {
+  const { bulbOn, setBulbOn } = useContext(bulbContext);
+  function toggle() {
     //setBulbOn(currentState=> !currentState); best use
     setBulbOn(!bulbOn);
   }
@@ -460,26 +460,26 @@ export default App
 import { useEffect, useState } from "react";
 
 function App() {
-const [count,setCount]=useState(()=>{
-const localCount=localStorage.getItem("count");
-return localCount ? parseInt(localCount,10) : 1;
-});
-useEffect(()=>{
-  localStorage.setItem("count",count)
-},[count])
+  const [count, setCount] = useState(() => {
+    const localCount = localStorage.getItem("count");
+    return localCount ? parseInt(localCount, 10) : 1;
+  });
+  useEffect(() => {
+    localStorage.setItem("count", count)
+  }, [count])
 
-function incrementC(){
-  setCount(prevC=>prevC+1);
-}
-function decreC(){
-  setCount(prevC=>prevC-1);
-}
+  function incrementC() {
+    setCount(prevC => prevC + 1);
+  }
+  function decreC() {
+    setCount(prevC => prevC - 1);
+  }
 
-return <div>
-  <p>{count}</p>
-  <button onClick={incrementC}>++</button>
-  <button onClick={decreC}>--</button>
-</div>
+  return <div>
+    <p>{count}</p>
+    <button onClick={incrementC}>++</button>
+    <button onClick={decreC}>--</button>
+  </div>
 }
 export default App
 ```
@@ -733,18 +733,18 @@ export default App;
 import { useState, useEffect } from "react";
 
 //custom hook
-export function usePostTitle(){
-  const[post,setPost]=useState({});
+export function usePostTitle() {
+  const [post, setPost] = useState({});
 
-  async function getPosts(){
-    const response= await fetch("https://jsonplaceholder.typicode.com/posts/1");
+  async function getPosts() {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
     const data = await response.json();
     setPost(data);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getPosts();
-  },[])
+  }, [])
 
   return <div>
     {post.title}
@@ -752,61 +752,61 @@ export function usePostTitle(){
 
 }
 
-export function useFetch(url){
-  const [finalData,setFinalData]=useState({});
-  const[loading, setLoading]=useState(true);
+export function useFetch(url) {
+  const [finalData, setFinalData] = useState({});
+  const [loading, setLoading] = useState(true);
   console.log(url);
 
   async function getDetails() {
     setLoading(true);
-    const response= await fetch(url);
+    const response = await fetch(url);
     const data = await response.json();
     setFinalData(data)
     setLoading(false);
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getDetails();
-  },[url]) // should mount everytime url changes orelse stuck in 1 url
+  }, [url]) // should mount everytime url changes orelse stuck in 1 url
 
-  useEffect(()=>{
-    setInterval(getDetails,10*1000) //every 10s re-fetching backend for any updates mostly used for mobile
-  },[]); //cleanup
+  useEffect(() => {
+    setInterval(getDetails, 10 * 1000) //every 10s re-fetching backend for any updates mostly used for mobile
+  }, []); //cleanup
 
   //if only getting data frm setIntv ..the data will load after 10s n updates evry 10s
   // the flash of evry 10s can be fixed by adding loading 
 
-return {
-  finalData,
-  loading
-}
+  return {
+    finalData,
+    loading
+  }
 }
 ```
 ## App.jsx
 ```javascript
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useFetch, usePostTitle } from "./hooks/useFetch";
 
-function App(){
-  const postTitle=usePostTitle();
-  const[currentPost, setCurrentPost]=useState(1);
-  const { loading,finalData }=useFetch("https://jsonplaceholder.typicode.com/posts/" + currentPost);
-  
-  if(loading){
+function App() {
+  const postTitle = usePostTitle();
+  const [currentPost, setCurrentPost] = useState(1);
+  const { loading, finalData } = useFetch("https://jsonplaceholder.typicode.com/posts/" + currentPost);
+
+  if (loading) {
     return <div>
       Loading...
     </div>
   }
 
   return (
-  <div>
-    {postTitle}
-    <br/>
-    <button onClick={()=> setCurrentPost(1)}>1</button>
-    <button onClick={()=> setCurrentPost(2)}>2</button>
-    <button onClick={()=> setCurrentPost(3)}>3</button>
-    {JSON.stringify(finalData)}
-  </div>
+    <div>
+      {postTitle}
+      <br />
+      <button onClick={() => setCurrentPost(1)}>1</button>
+      <button onClick={() => setCurrentPost(2)}>2</button>
+      <button onClick={() => setCurrentPost(3)}>3</button>
+      {JSON.stringify(finalData)}
+    </div>
   )
 }
 export default App
