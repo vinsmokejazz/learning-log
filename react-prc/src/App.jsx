@@ -1,25 +1,48 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, createContext, useContext } from "react";
 
-function useDebounce(orgFn) {
-  const currentClock = useRef();
+const CounterContext = createContext();
 
-  const fn = () => {
-    clearTimeout(currentClock.current);
-    currentClock.current = setTimeout(orgFn, 200);
-  }
-  return fn
+function CounterContextProvider({ children }) {
+  const [count, setCount] = useState(0);
+  return <CounterContext.Provider value={{
+    count: count,
+    setCount: setCount
+  }}>{children}</CounterContext.Provider>
+}
+
+
+function Parent() {
+  return <div>
+    <CounterContextProvider>
+      <IncreaseCount />
+      <DecreaseCount />
+      <Value />
+    </CounterContextProvider>
+  </div>
 
 }
 
+function IncreaseCount() {
+  const { setCount } = useContext(CounterContext);
+  return <button onClick={() => setCount((count) => count + 1)}>+</button>
+
+}
+
+function DecreaseCount() {
+  const { setCount } = useContext(CounterContext);
+  return <button onClick={() => setCount((count) => count - 1)}>-</button>
+
+}
+function Value() {
+  const { count } = useContext(CounterContext);
+  return <p>count: {count}</p>
+}
+
 function App() {
-  function sendDataToBackend() {
-    fetch("api.amazon.com/search/");
-  }
-  const debouncedFn = useDebounce(sendDataToBackend)
-
   return <div>
-    <input type="text" onChange={debouncedFn}></input>
+    <CounterContextProvider>
+      <Parent></Parent>
+    </CounterContextProvider>
   </div>
-
 }
 export default App
