@@ -1107,3 +1107,75 @@ export const evenSelector = selector({
 })
 // selectors mainly eg like toggle button for premium users in admin
 ```
+# Recoil eg linkdn topBar
+```javascript
+import { jobsAtom, messageAtom, networkAtom, notificationAtom, totalNotificationSelector } from "./store/atom/counter";
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+import { use } from "react";
+
+function App() {
+    return <RecoilRoot>
+        <MainApp />
+    </RecoilRoot>
+}
+
+function MainApp() {
+    const networkNotificatonCount = useRecoilValue(networkAtom)
+    const jobsCount = useRecoilValue(jobsAtom)
+    const notificationCount = useRecoilValue(notificationAtom)
+    const [messageCount, setMessageCount] = useRecoilState(messageAtom);
+    //whenever u want to update value use useRecoilState hook 
+    const totalNotificationCount = useRecoilValue(totalNotificationSelector);
+
+
+    return (
+        <>
+            <button>Home</button>
+            <button>My Network ({networkNotificatonCount >= 100 ? "99+" : networkNotificatonCount})</button>
+            <button>Jobs ({jobsCount >= 100 ? "99+" : jobsCount})</button>
+            <button>Messaging ({messageCount >= 100 ? "99+" : messageCount})</button>
+            <button>Notifications ({notificationAtom >= 100 ? "99+" : notificationCount})</button>
+
+
+            <button onClick={() => {
+                setMessageCount(c => c + 1)
+            }}>Me ({totalNotificationCount >= 100 ? "99+" : totalNotificationCount})</button>
+
+        </>
+    )
+}
+
+export default App
+//counter.js
+import { atom, selector } from "recoil"
+
+export const networkAtom = atom({
+  key: "networkAtom",
+  default: 102
+})
+
+export const jobsAtom = atom({
+  key: "jobsAtom",
+  default: 0
+})
+export const messageAtom = atom({
+  key: "messageAtom",
+  default: 0
+})
+export const notificationAtom = atom({
+  key: "notificationAtom",
+  default: 20
+})
+
+export const totalNotificationSelector = selector({
+  key: "totalNotificationSelector",
+  get: ({ get }) => {
+    const networkAtomCount = get(networkAtom);
+    const jobsAtomCount = get(jobsAtom);
+    const notificationAtomCount = get(notificationAtom);
+    const messageAtomCount = get(messageAtom);
+    return networkAtomCount + jobsAtomCount + notificationAtomCount + messageAtomCount
+
+  }
+})
+```
