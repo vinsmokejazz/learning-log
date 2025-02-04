@@ -1,83 +1,75 @@
 
-import { useState, useEffect, memo } from "react";
+// Importing counterAtom and evenSelector from the store module
+import { counterAtom, evenSelector } from "./store/atom/counter";
 
-// Create a App component that renders in the root element
+// Importing necessary functions from Recoil for state management
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
+
+// Main App component that serves as the entry point for the application
 function App() {
     return (
         <div>
-            {/* Render the Counter component */}
-            <Counter />
+            {/* Wrapping the application in RecoilRoot to provide Recoil state management */}
+            <RecoilRoot>
+                {/* Rendering the Buttons, Counter, and IsEven components */}
+                <Buttons /> 
+                <Counter /> 
+                <IsEven /> 
+            </RecoilRoot>
         </div>
     );
 }
 
-// Counter component that manages the count state
-function Counter() {
-    const [count, setCount] = useState(0);
+// Buttons component that provides controls to increase and decrease the count
+function Buttons() {
+    // useSetRecoilState hook to get the setter function for counterAtom
+    const setCount = useSetRecoilState(counterAtom);
 
-    // useEffect to set up an interval that increments the count every 3 seconds
-    useEffect(() => {
-        // Set up an interval to increment the count
-        const interval = setInterval(() => {
-            setCount((c) => c + 1); // Increment count by 1
-        }, 3000);
+    // Function to increase the count by 2
+    function increase() {
+        setCount((c) => c + 2); // Updating state by adding 2 to the current count
+    }
 
-        // Cleanup function to clear the interval on component unmount
-        return () => clearInterval(interval);
-    }, []); // Empty dependency array ensures this runs only once after the initial render
+    // Function to decrease the count by 1
+    function decrease() {
+        setCount((c) => c - 1); // Updating state by subtracting 1 from the current count
+    }
 
     return (
         <div>
-            {/* Display the current count */}
-            <CurrentCount count={count} />
-
-            {/* Render the Increase component and pass setCount as prop */}
-            <Increase setCount={setCount} />
-
-            {/* Render the Decrease component and pass setCount as prop */}
-            <Decrease setCount={setCount} />
+            {/* Button to trigger the increase function when clicked */}
+            <button onClick={increase}>Increase</button>
+           
+            {/* Button to trigger the decrease function when clicked */}
+            <button onClick={decrease}>Decrease</button>
         </div>
     );
 }
 
-// Memoized CurrentCount component to prevent unnecessary re-renders
-const CurrentCount = memo(function({ count }) {
+// Counter component that displays the current count
+function Counter() {
+    // useRecoilValue hook to get the current value of counterAtom
+    const count = useRecoilValue(counterAtom);
 
-    // Return the current count value
     return (
-        // Display the current count value
-        <h1>{count}</h1> 
+        <div>
+            <h2>Count: {count}</h2> {/* Displaying the current count value */}
+        </div>
     );
-});
+}
 
-// Memoized Decrease component that renders a button to decrease the count
-const Decrease = memo(function({ setCount }) {
-    // Function to handle the decrease action
-    function decrease() {
-        setCount((c) => c - 1); // Decrement count by 1
-    }
+// IsEven component that checks if the count is even and displays the result
+function IsEven() {
+    // useRecoilValue hook to get the computed value from evenSelector
+    const isEven = useRecoilValue(evenSelector);
 
-    // Return the button to trigger the decrease function
     return (
-        // Button to trigger the decrease function 
-        <button onClick={decrease}>Decrease</button>
-    ); 
-});
+        <div>
+            {/* Displaying whether the count is even or not */}
+            <h3>Is Even: {isEven ? "Yes" : "No"}</h3>
+        </div>
+    );
+}
 
-// Memoized Increase component that renders a button to increase the count
-const Increase = memo(function({ setCount }) {
-    // Function to handle the increase action 
-    function increase() {
-        // Increment the count by 1
-        setCount((c) => c + 1); 
-    }
-
-    // Return the button to trigger the increase function
-    return (
-        // Button to trigger the increase function
-        <button onClick={increase}>Increase</button>
-    ); 
-});
-
-// Export the App component as the default export to make it available in other parts of the application
+// Exporting the App component as the default export to make it available in other parts of the application
 export default App;
