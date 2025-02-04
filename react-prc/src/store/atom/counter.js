@@ -1,16 +1,31 @@
-import { atom, selector } from "recoil";
+import { atom, selector } from "recoil"
 
-export const counterAtom = atom({
-  default: 0,
-  key: "counter"
+export const networkAtom = atom({
+  key: "networkAtom",
+  default: 102
 })
 
-export const evenSelector = selector({
-  key: "isEvenSelector", //to uniquely idetify it
-  get: function ({ get }) {
-    const currentCount = get(counterAtom); //selector depends on CounterAtom by using get
-    const isEven = (currentCount % 2 == 0);
-    return isEven;
+export const jobsAtom = atom({
+  key: "jobsAtom",
+  default: 0
+})
+export const messageAtom = atom({
+  key: "messageAtom",
+  default: 0
+})
+export const notificationAtom = atom({
+  key: "notificationAtom",
+  default: 20
+})
+
+export const totalNotificationSelector = selector({
+  key: "totalNotificationSelector",
+  get: ({ get }) => {
+    const networkAtomCount = get(networkAtom);
+    const jobsAtomCount = get(jobsAtom);
+    const notificationAtomCount = get(notificationAtom);
+    const messageAtomCount = get(messageAtom);
+    return networkAtomCount + jobsAtomCount + notificationAtomCount + messageAtomCount
+
   }
 })
-// selectors mainly eg like toggle button for premium users in admin
