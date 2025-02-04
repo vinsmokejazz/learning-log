@@ -1,7 +1,5 @@
-
-import './App.css'
 import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { notifications, totalNotificationSelector } from './atoms'
+import { notifications, totalNotificationSelector } from './store/atom/counter'
 import { useEffect } from 'react'
 import axios from 'axios'
 
