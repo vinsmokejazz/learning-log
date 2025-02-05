@@ -1,14 +1,22 @@
-import { atom, atomFamily, selector } from "recoil";
+import { atom, selector } from "recoil";
 
-export const todosAtomFamily = atomFamily({
-  key :"todosAtomFamily",
-  default: id=>{
-    return TODOS.find(x=>x.id===id)
-  },
-})
+export const notifications = atom({
+    key: "networkAtom",
+    default: selector({
+      key: "networkAtom",
+      get: async()=>{
+        const res= await axios.get()
+      }
+    })
+});
 
-const todoAtom = atom({
-  key:"todoAtom",
-  default:1
-
+export const totalNotificationSelector = selector({
+    key: "totalNotificationSelector",
+    get: ({get}) => {
+        const allNotifications = get(notifications);
+        return allNotifications.network + 
+        allNotifications.jobs + 
+        allNotifications.notifications + 
+        allNotifications.messaging
+    }
 })
