@@ -1,11 +1,11 @@
 let currentClock;
-function searchBackend(){
+function searchBackend() {
   console.log("request sent to backend");
 }
 
-function debounceSearch(){
+function debounceSearch() {
   clearTimeout(currentClock);
-  currentClock=setTimeout(searchBackend,30);
+  currentClock = setTimeout(searchBackend, 30);
 }
 
 debounceSearch();
