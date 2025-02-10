@@ -1,32 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The-Pokémon Cards</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokemon</title>
 </head>
 <body>
-  <h1>The-Pokémon Cards</h1>
-  <form id="pokemonForm">
+  <div style="display: flex;">
     <label>
-      Number of Cards:
-      <input type="number" id="numCards" min="1" required />
-    </label>
-    <label>
-      Category:
-      <select id="category">
-        <option value="all">All</option>
-        <option value="grass">Grass</option>
-        <option value="fire">Fire</option>
-        <option value="water">Water</option>
-        <option value="electric">Electric</option>
+      <form>
+        <input type="number" name="Category"  id="inputBox">
+      <select id="dropDown">
+        <option>Fire</option>
+        <option>Water</option>
+        <option>Earth</option>
+        <option>Forest</option>
       </select>
+  
+      <button>GET</button>
+      </form>
     </label>
-    <button type="submit">Show Cards</button>
-  </form>
-
-  <div class="card-container" id="cardContainer"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
