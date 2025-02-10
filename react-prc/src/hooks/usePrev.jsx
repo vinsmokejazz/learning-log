@@ -9,3 +9,4 @@ useEffect(()=>{
 
 return ref.current; //undefined
 }
+// it return first, effect gets called later
