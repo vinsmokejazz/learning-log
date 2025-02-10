@@ -7,31 +7,33 @@
   <title>Quiz App</title>
 </head>
 
+<link rel="stylesheet" href="styles.css" />
+
 <body>
-  <div>
-    <label>
-      <h1 id="questionCon"></h1>
-    </label>
-    <label>
+  <div id="quizContainer">
+    <h1 id="questionCon"></h1>
+    <div id="optionsContainer">
       <p>
-        <input type="radio" id="option1" />
+        <input type="radio" id="option1" name="quizOptions" value="a" />
+        <label for="option1" id="label1"></label>
       </p>
       <p>
-        <input type="radio" id="option2" />
+        <input type="radio" id="option2" name="quizOptions" value="b" />
+        <label for="option2" id="label2"></label>
       </p>
       <p>
-        <input type="radio" id="option3" />
+        <input type="radio" id="option3" name="quizOptions" value="c" />
+        <label for="option3" id="label3"></label>
       </p>
       <p>
-        <input type="radio" id="option4" />
+        <input type="radio" id="option4" name="quizOptions" value="d" />
+        <label for="option4" id="label4"></label>
       </p>
-    </label>
-    <label>
-      <button id="submitBtn">Submit</button>
-    </label>
+    </div>
   </div>
-
+  <br/>
+  <button id="submitBtn">Submit</button>
+ 
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
-
 </html>

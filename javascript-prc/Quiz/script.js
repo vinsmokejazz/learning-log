@@ -1,5 +1,5 @@
-//  use this quizData in your app.
-export const quizData = [
+// Quiz data used in your app.
+const quizData = [
   {
     question: "Which language runs in a web browser?",
     a: "Java",
@@ -32,29 +32,73 @@ export const quizData = [
     d: "none of the above",
     correct: "b",
   },
-  // you can add more quiz here
+  // You can add more quiz questions here.
 ];
 
 const questionCon = document.getElementById("questionCon");
-const option1 = document.getElementById("option1");
-const option2 = document.getElementById("option2");
-const option3= document.getElementById("option3");
-const option4=document.getElementById("option4");
+const label1 = document.getElementById("label1");
+const label2 = document.getElementById("label2");
+const label3 = document.getElementById("label3");
+const label4 = document.getElementById("label4");
+const submitBtn = document.getElementById("submitBtn");
 
 let currQuest = 0;
-function dispQuestion() {
-  const questVal = quizData[currQuest].question;
-  questionCon.textContent = questVal;
+let score = 0;
+
+// Display the current question and its options.
+function display() {
+  const currentData = quizData[currQuest];
+  questionCon.textContent = currentData.question;
+  label1.textContent = currentData.a;
+  label2.textContent = currentData.b;
+  label3.textContent = currentData.c;
+  label4.textContent = currentData.d;
 }
 
-function dispOptions(){
-  option1.textContent=quizData[currQuest].a;
+// Clear any previously selected radio option.
+function clearSelection() {
+  const radios = document.querySelectorAll("input[name='quizOptions']");
+  radios.forEach((radio) => (radio.checked = false));
 }
 
-document.getElementById("submitBtn").addEventListener("click", () => {
-  currQuest++;
-  if (currQuest < quizData.length) {
-    dispQuestion();
-    dispOptions();
-  }
-});
+// Initially display the first question.
+display();
+
+submitBtn.addEventListener(
+  "click",
+  (handle = () => {
+    // Ensure the user has selected an answer.
+    const selectedAnswer = document.querySelector(
+      'input[name="quizOptions"]:checked'
+    );
+    if (!selectedAnswer) {
+      alert("Please select an answer");
+      return; // Stop here if no answer is selected.
+    }
+
+    // Check if the selected answer is correct.
+    const answer = selectedAnswer.value;
+    const currentData = quizData[currQuest];
+    if (answer === currentData.correct) {
+      score++;
+    }
+
+    currQuest++;
+    if (currQuest < quizData.length) {
+      clearSelection();
+      display();
+    } else {
+      //quiz over remove event
+      submitBtn.removeEventListener("click", handle);
+
+      // When the quiz is over, display the result.
+      document.getElementById("quizContainer").innerHTML = `
+      <h2>You answered ${score}/${quizData.length} questions correctly.</h2>
+    `;
+      submitBtn.innerHTML = "Reload";
+      submitBtn.addEventListener("click", () => {
+        location.reload();
+      });
+    }
+  })
+);
