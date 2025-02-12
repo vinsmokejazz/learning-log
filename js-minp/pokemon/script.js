@@ -6,7 +6,7 @@ const cardContainer = document.getElementById("cardContainer");
 
 // Listen for form submission
 form.addEventListener("submit", async function(e) {
-  e.preventDefault();
+  e.preventDefault(); //prevent event from occuring 
   const numCards = parseInt(numCardsInput.value);
   const category = categorySelect.value; // For now, category is not used for filtering
   cardContainer.innerHTML = ""; // Clear previous cards
