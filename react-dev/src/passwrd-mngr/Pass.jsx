@@ -41,7 +41,7 @@ function Pass() {
       <div>
         <input
           type="range"
-          min={6} max={100} value={length}
+          min={6} max={30} value={length}
           onChange={(e) => { setLength(e.target.value) }}
         />
         <label> length: {length}</label>
