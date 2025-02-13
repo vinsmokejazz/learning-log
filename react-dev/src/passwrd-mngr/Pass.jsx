@@ -1,72 +1,86 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState , useRef } from "react";
 
 function Pass() {
-  const [length, setLength] = useState(8);
+  const [password, setPassword] = useState("");
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
-  const [password, setPassword] = useState("");
+  const [length, setLength] = useState(5);
+
   const passwordref = useRef(null);
 
-  useEffect(() => {
-    let pass = ""
-    let str =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-    if (numberAllowed) str += "0123456789"
-    if (charAllowed) str += "0!@#$%^&*()_-=+{}|"
+  // Function to generate password
+  const generatePassword = useCallback(() => {
+    let pass = "";
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    for (let i = 1; i < length; i++) {
-      let char = Math.floor(Math.random() * str.length + 1)
-      pass += str.charAt(char)
+    if (numberAllowed) str += "1234567890";
+    if (charAllowed) str += "!@#$%^&*()-=+";
 
+    for (let i = 0; i < length; i++) {
+      let char = Math.floor(Math.random() * str.length);
+      pass += str.charAt(char);
     }
-    setPassword(pass)
+    setPassword(pass);
+  }, [length, numberAllowed, charAllowed]);
 
-  }, [length, numberAllowed, charAllowed, setPassword])
+  // Generate password when dependencies change
+  useEffect(() => {
+    generatePassword();
+  }, [length, numberAllowed, charAllowed, generatePassword]);
 
-  return <div>
-    <h1>Password Generator</h1>
-    <div>
-      <div>
-        <input
-          type="text" value={password} placeholder="password" readOnly
-          ref={passwordref} />
+  // Function to copy password to clipboard
+  const copyToClipboard = () => {
+    passwordref.current.select();
+    passwordref.current.setSelectionRange()
 
-        <button onClick={() => {
-          passwordref.current.select();
-          passwordref.current.setSelectionRange()
-          window.navigator.clipboard.writeText(password)
-        }}>Copy</button>
-      </div>
+    window.navigator.clipboard.writeText(password);
+  };
+
+  return (
+    <div style={{ textAlign: "center", padding: "20px" }}>
+      <h2>Password Generator</h2>
+      
+      <input
+        type="text"
+        readOnly
+        placeholder="password"
+        value={password}
+        ref={passwordref}
+        style={{ width: "200px", textAlign: "center", padding: "5px" }}
+      />
+      <button onClick={copyToClipboard} style={{ marginLeft: "10px" }}>
+        Copy
+      </button>
 
       <div>
         <input
           type="range"
-          min={6} max={30} value={length}
-          onChange={(e) => { setLength(e.target.value) }}
+          value={length}
+          min={5}
+          max={30}
+          onChange={(e) => setLength(Number(e.target.value))}
         />
-        <label> length: {length}</label>
+        <label> Length: {length}</label>
       </div>
 
       <div>
-        <input type="checkbox"
-          defaultChecked={numberAllowed}
-          onChange={() => {
-            setNumberAllowed((prev) => !prev);
-          }} />
-        <label htmlFor="numberInput">Numbers</label>
+        <input
+          type="checkbox"
+          checked={numberAllowed}
+          onChange={() => setNumberAllowed((prev) => !prev)}
+        />
+        <label> Include Numbers</label>
 
         <input
           type="checkbox"
-          defaultChecked={charAllowed}
-          onChange={() => {
-            setCharAllowed((prev) => !prev)
-          }} />
-        <label>Characters</label>
+          checked={charAllowed}
+          onChange={() => setCharAllowed((prev) => !prev)}
+          style={{ marginLeft: "10px" }}
+        />
+        <label> Include Special Characters</label>
       </div>
-
     </div>
-
-  </div>
-
+  );
 }
-export default Pass
+
+export default Pass;
