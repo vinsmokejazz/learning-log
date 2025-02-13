@@ -30,10 +30,10 @@ function Pass() {
 
   // Function to copy password to clipboard
   const copyToClipboard = () => {
-    passwordref.current.select();
-    passwordref.current.setSelectionRange()
+    passwordref.current.select(); //selection
+    passwordref.current.setSelectionRange() //selection
 
-    window.navigator.clipboard.writeText(password);
+    window.navigator.clipboard.writeText(password); //real selection
   };
 
   return (
@@ -45,7 +45,7 @@ function Pass() {
         readOnly
         placeholder="password"
         value={password}
-        ref={passwordref}
+        ref={passwordref} //referencing for copy(blue color selection)
         style={{ width: "200px", textAlign: "center", padding: "5px" }}
       />
       <button onClick={copyToClipboard} style={{ marginLeft: "10px" }}>
@@ -55,10 +55,10 @@ function Pass() {
       <div>
         <input
           type="range"
-          value={length}
+          value={length} //value
           min={5}
           max={30}
-          onChange={(e) => setLength(Number(e.target.value))}
+          onChange={(e) => setLength(Number(e.target.value))} // e event passing
         />
         <label> Length: {length}</label>
       </div>
