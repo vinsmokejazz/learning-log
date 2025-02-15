@@ -1,8 +1,24 @@
-# React + Vite
+# Tailwind CSS 
+## getting start to understand the responsiveness and syntax by simple div eg
+```javascript
+function App() {
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  return ( //default will be fr mobile...sm,md,xl indicates if it goes above it!!
+    <> 
+    <div className="grid grid-cols-12">
+      <div className="col-span-12 bg-red-300  sm:col-span-4 xl:col-span-12">
+        child 1
+      </div>
+      <div className="col-span-12 bg-green-300  sm:col-span-4">
+        child 2
+      </div>
+      <div className="col-span-12 bg-blue-300  sm:col-span-4">
+        child 3
+      </div>
+    </div>
+    </>
+  )
+}
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+export default App
+```
