@@ -1,5 +1,6 @@
-import { Button } from "./components/Button"
+import Button from "./components/Button"
 import { Input } from "./components/Input"
+import Otp from "./components/Otp"
 
 function App() {
 
@@ -7,7 +8,13 @@ function App() {
   <div className="h-screen bg-blue-700">
     <Input  placeholder={"enter date"}></Input>
 
-    <Button disabled={true}>Continue</Button>
+    <Button disabled={false}>Continue</Button>
+    <Otp number={6}></Otp>
+
+    
+  
+   
+
 
   </div>
   )
