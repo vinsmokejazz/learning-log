@@ -66,16 +66,3 @@ function printId(id: StringOrNumber) {
 printId(101); // ID: 101
 printId("202"); // ID: 202
 
-class Employee implements Person {
-  name: string;
-  age: number;
-
-  constructor(n: string, a: number) {
-      this.name = n;
-      this.age = a;
-  }
-
-  greet(phrase: string) {
-      console.log(`${phrase} ${this.name}`);
-  }
-}
