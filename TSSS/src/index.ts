@@ -39,22 +39,23 @@ type User = {
 }
 type StringorNumber = string | number;
 
-type emplyoee = {
-  name: string,
-  date: Date;
-}
-type manager = {
-  name: string,
-  dept: string,
-}
+type Employee = {
+  name: string;
+  startDate: Date;
+};
 
-type teamLead = emplyoee & manager
+type Manager = {
+  name: string;
+  department: string;
+};
 
-const tLead: teamLead = {
-  name: "hh",
-  date: new Date(),
-  dept: "ddjd"
-}
+type TeamLead = Employee & Manager;
+
+const teamLead: TeamLead = {
+  name: "harkirat",
+  startDate: new Date(),
+  department: "Software developer"
+};
 
 type StringOrNumber = string | number;
 
