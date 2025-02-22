@@ -1,68 +1,26 @@
-
-//objects in ts
-function delay(fn: () => void) {
-  setTimeout(fn, 1000);
-}
-delay(function () {
-  console.log("hello")
-})
-
-let user: {
-  fdn: string,
-  age: number,
-} = {
-  fdn: "kirr",
-  age: 10,
-}
-
-
-//interfaces in ts
-interface UserType {
-  firstName: string,
-  lastName: string,
-  age: number
-}
-
-let user1: UserType = {
-  firstName: "jj",
-  age: 20,
-  lastName: "kk"
-}
-
-//in function
-function greet(user: UserType) {
-
-}
-
-type User = {
-
-}
-type StringorNumber = string | number;
-
-type Employee = {
+interface User {
   name: string;
-  startDate: Date;
-};
+  age: number;
+  address?:{   //optional for ?
+    city:string;
+    country:string;
+    pincode:number;
 
-type Manager = {
-  name: string;
-  department: string;
-};
-
-type TeamLead = Employee & Manager;
-
-const teamLead: TeamLead = {
-  name: "harkirat",
-  startDate: new Date(),
-  department: "Software developer"
-};
-
-type StringOrNumber = string | number;
-
-function printId(id: StringOrNumber) {
-  console.log(`ID: ${id}`);
+  }
 }
 
-printId(101); // ID: 101
-printId("202"); // ID: 202
+let user: User={
+  name:"vv",
+  age:10,
+  address:{
+    city:"blr",
+    country:"india",
+    pincode:5345
 
+  }
+}
+
+let user2:User={
+  name:'gs',
+  age:11,
+}
