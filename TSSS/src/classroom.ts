@@ -1,14 +1,16 @@
-function getMax(nums: number[]){
-
+interface User {
+  firstName: string;
+  lastName: string;
+  age: number;
 }
 
-interface Adress{
-  city:string;
-  pincode:string;
+function isLegal(users: User[]): boolean[] {
+  return users.map((user) => user.age >= 18); // Fixed variable name
 }
 
-interface User{
-  name:string;
-  age:number;
-  adresses: Adress[];
-}
+const users: User[] = [
+  { firstName: "John", lastName: "Doe", age: 25 },
+  { firstName: "Jane", lastName: "Smith", age: 17 }
+];
+
+console.log(isLegal(users)); 

@@ -3,13 +3,13 @@ interface Admin {
   permissions:string;
 }
 
-interface User{
+interface SUser{
   name: string;
   age:number;
 }
 
 type UserOrAdmin=
-  User | Admin;    //for top-level type shld be called
+  SUser | Admin;    //for top-level type shld be called
 
 function greet(user:UserOrAdmin){
   console.log(user.name)
@@ -19,3 +19,4 @@ function greet(user:UserOrAdmin){
 interface BigUser {
   birtday: number | string  //in this level & | can be used not in top level
 }
+
