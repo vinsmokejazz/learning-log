@@ -1,22 +1,13 @@
-interface Admin {
-  name:string;
-  permissions:string;
-}
-
-interface SUser{
+interface User{
+  id: string;
   name: string;
-  age:number;
+  age: number;
+  email: string;
+  password: string;
+};
+
+type UpdateProps= Pick<User, 'name' | 'age' | 'email'>
+
+function updateUser(UpdateddProps:UpdateProps){
+  //hit db
 }
-
-type UserOrAdmin=
-  SUser | Admin;    //for top-level type shld be called
-
-function greet(user:UserOrAdmin){
-  console.log(user.name)
-}
-
-
-interface BigUser {
-  birtday: number | string  //in this level & | can be used not in top level
-}
-
