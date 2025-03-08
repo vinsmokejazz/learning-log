@@ -1,3 +1,6 @@
+# WebSocket
+## connection
+```typescript
 import  { WebSocketServer } from "ws";
 
 const wss= new WebSocketServer({port: 8080});
@@ -9,3 +12,4 @@ wss.on("connection", function(socket){
     socket.send("current sol price is " + Math.floor(Math.random()*100));
   },500)
 })
+```
