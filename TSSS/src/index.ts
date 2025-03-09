@@ -8,4 +8,10 @@ wss.on("connection", function(socket){
   setInterval(()=>{
     socket.send("current sol price is " + Math.floor(Math.random()*100));
   },500)
+
+  socket.on("message",(e)=>{
+    console.log(e.toString());
+  })
+  
 })
+
